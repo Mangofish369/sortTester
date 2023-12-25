@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=SortManager
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ SortManager\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=
+comment2.target=void\ UI()
+comment3.params=fileName
+comment3.target=void\ loadData(java.lang.String)
+comment4.params=num
+comment4.target=int[]\ bubbleSortOpCount(int[])
+comment4.text=\r\n\ This\ is\ an\ example\ of\ how\ to\ turn\ a\ sort\ algorithm\r\n\ into\ an\ "opCount"\ method\ -\ it\ uses\ a\ rough\ count\r\n\ of\ overall\ operations\ to\ provide\ some\ interesting\r\n\ information\ -\ it's\ non-scientific,\ but\ when\ you\ compare\r\n\ the\ results\ you\ can\ get\ proportionate\ and\ interesting\r\n\ results.\r\n
+comment5.params=num
+comment5.target=int[]\ bubbleSort(int[])
+comment6.params=array
+comment6.target=void\ recursionSort(int[])
+comment6.text=\r\n\ My\ own\ sort\ method\ (a\ very\ slow\ bubble\ sort)\r\n
+comment7.params=array
+comment7.target=int[]\ recursionSortOpCount(int[])
+comment8.params=theArray\ report
+comment8.target=boolean\ checkResults(int[],\ boolean)
+comment8.text=\r\n\ Sort\ result\ checker.\r\n\ \r\n\ This\ modular\ method\ will\ check\ any\ given\ array\ of\ integers\ and\ \r\n\ return\ true\ if\ the\ values\ are\ correctly\ sorted\ or\ false\ if\ there\r\n\ are\ any\ errors.\ Setting\ the\ parameter\ boolean\ reporting\ to\ true\r\n\ will\ also\ output\ the\ results\ to\ the\ screen.\r\n\ \r\n\ @author\ Jordan\ Cohen\r\n\ @version\ April\ 2014\r\n
+numComments=9
