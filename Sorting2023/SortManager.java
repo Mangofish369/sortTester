@@ -44,7 +44,7 @@ public class SortManager
     }
     
     public static void UI(){
-        scan = new Scanner (System.in);
+        Scanner scanner = new Scanner (System.in);
         Timer timer = new Timer();
         boolean exit = false;
         String fileName;
@@ -57,8 +57,7 @@ public class SortManager
             System.out.println("4. Check both");
             System.out.println("5. Exit");
             try{
-                choice = Integer.parseInt(scan.nextLine());
-                scan.nextLine();
+                choice = Integer.parseInt(scanner.nextLine());
             } catch(NumberFormatException e){
                 System.out.println("Please enter an integer");
             }
@@ -67,7 +66,7 @@ public class SortManager
             }
             else if(choice == 1){
                 System.out.println("Enter the file Name");
-                loadData(scan.nextLine());
+                loadData(scanner.nextLine());
             }
             else if(choice == 2){
                 timer.startTimer();
@@ -75,10 +74,19 @@ public class SortManager
                 timer.endTimer();
                 System.out.println("It took " + timer);
             }
+            else if(choice == 3){
+                int[] results = recursionSortOpCount(numbers.clone());
+                System.out.println("It took " + ops+" operations");
+            }
+            else if(choice == 4){
+                timer.startTimer();
+                int[] results = recursionSortOpCount(numbers.clone());
+                timer.endTimer();
+                System.out.println("It took " + timer + " and " + ops + " operations.");
+            }
             else if(choice == 5){
                 exit = true;
             }
-            System.out.println("here");
         }
     }
     
