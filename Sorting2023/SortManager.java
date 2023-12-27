@@ -48,7 +48,7 @@ public class SortManager
         Timer timer = new Timer();
         boolean exit = false;
         String fileName;
-        
+        int[] results;
         while(!exit){
             int choice = 0;
             System.out.println("1. Select a file");
@@ -61,31 +61,34 @@ public class SortManager
             } catch(NumberFormatException e){
                 System.out.println("Please enter an integer");
             }
-            if(choice == 0){
-                System.out.println("Invalid choice");
-            }
-            else if(choice == 1){
-                System.out.println("Enter the file Name");
-                loadData(scanner.nextLine());
-            }
-            else if(choice == 2){
-                timer.startTimer();
-                int[] results = recursionSortOpCount(numbers.clone());
-                timer.endTimer();
-                System.out.println("It took " + timer);
-            }
-            else if(choice == 3){
-                int[] results = recursionSortOpCount(numbers.clone());
-                System.out.println("It took " + ops+" operations");
-            }
-            else if(choice == 4){
-                timer.startTimer();
-                int[] results = recursionSortOpCount(numbers.clone());
-                timer.endTimer();
-                System.out.println("It took " + timer + " and " + ops + " operations.");
-            }
-            else if(choice == 5){
-                exit = true;
+            switch(choice){
+                case 0:
+                   System.out.println("Invalid choice");
+                    break;
+                
+                case 1:
+                    System.out.println("Enter the file Name");
+                    loadData(scanner.nextLine());
+                    break;
+                case 2:
+                    timer.startTimer();
+                    results = recursionSortOpCount(numbers.clone());
+                    timer.endTimer();
+                    System.out.println("It took " + timer);
+                    break;
+                case 3:
+                    results = recursionSortOpCount(numbers.clone());
+                    System.out.println("It took " + ops+" operations");
+                    break;
+                case 4:
+                    timer.startTimer();
+                    results = recursionSortOpCount(numbers.clone());
+                    timer.endTimer();
+                    System.out.println("It took " + timer + " and " + ops + " operations.");
+                    break;
+                case 5:
+                    exit = true;
+                    break;
             }
         }
     }
