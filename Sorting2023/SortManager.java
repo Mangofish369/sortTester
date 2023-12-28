@@ -17,9 +17,11 @@ public class SortManager
     private static Integer[] fancyNumbers;
     private static int[] numbers;
     private static long ops;
+    private static ArrayList<Integer> nums = new ArrayList<>();
+    private static ArrayList<Integer> clonedNums = new ArrayList<>();
     
     public static void main (String[] args){
-        String fileName = "25_source.txt";
+        String fileName = "250k_source.txt";
         Timer timer = new Timer();
         size = 0;
 
@@ -30,7 +32,7 @@ public class SortManager
         loadData (fileName);
         
         // run our sort
-        int[] results = recursionSortOpCount(numbers.clone());
+        int[] results = bubbleSortOpCount(numbers.clone());
 
         // stop the timer
         timer.endTimer();
@@ -49,6 +51,7 @@ public class SortManager
         boolean exit = false;
         String fileName;
         int[] results;
+        ArrayList<Integer> sorted = new ArrayList<>();
         while(!exit){
             int choice = 0;
             System.out.println("1. Select a file");
@@ -72,17 +75,17 @@ public class SortManager
                     break;
                 case 2:
                     timer.startTimer();
-                    results = recursionSortOpCount(numbers.clone());
+                    results = quickSort(numbers.clone(),0,numbers.length-1);
                     timer.endTimer();
                     System.out.println("It took " + timer);
                     break;
                 case 3:
-                    results = recursionSortOpCount(numbers.clone());
+                    results = quickSortOpCount(numbers.clone(),0,numbers.length-1);
                     System.out.println("It took " + ops+" operations");
                     break;
                 case 4:
                     timer.startTimer();
-                    results = recursionSortOpCount(numbers.clone());
+                    results = quickSortOpCount(numbers.clone(),0,numbers.length-1);
                     timer.endTimer();
                     System.out.println("It took " + timer + " and " + ops + " operations.");
                     break;
@@ -108,9 +111,13 @@ public class SortManager
         }  
 
         // populate our array
+        
         numbers = new int[lines.size()];
         for (int i = 0; i < numbers.length; i++){
-            numbers[i] = Integer.parseInt(lines.get(i));
+            Integer value = Integer.parseInt(lines.get(i));
+            numbers[i] = value;
+            nums.add(value);
+            clonedNums.add(value);
         }
     }
     
@@ -202,18 +209,104 @@ public class SortManager
         }
         return array;
     }
-        
-    /**
-     * Sort result checker.
-     * 
-     * This modular method will check any given array of integers and 
-     * return true if the values are correctly sorted or false if there
-     * are any errors. Setting the parameter boolean reporting to true
-     * will also output the results to the screen.
-     * 
-     * @author Jordan Cohen
-     * @version April 2014
+    
+    /*
+     * Not Working (Stack Overflow error)
      */
+    public static ArrayList<Integer> quickSort(ArrayList<Integer> nums){
+        //recursive base case
+        if(nums.size() < 2){
+            return nums;
+        }
+        // Use pivot to futher split apart the numbers into smaller more sorted arrays
+        else{
+            int pivot = nums.get(0);
+            ArrayList <Integer> less = new ArrayList<>();
+            ArrayList <Integer> greater = new ArrayList<>();
+            
+            ArrayList <Integer> merge = new ArrayList<>();
+            for(int i: nums){
+                if(i < pivot){
+                    less.add(i);
+                }
+                else{
+                    greater.add(i);
+                }
+            }
+            merge.addAll(quickSort(less));
+            merge.add(pivot);
+            merge.addAll(quickSort(greater));
+            
+            return merge;
+        }
+    }
+    
+    public static int[] quickSort(int arr[], int begin, int end) {
+        if (begin < end) {
+            int partitionIndex = partition(arr, begin, end);
+    
+            quickSort(arr, begin, partitionIndex-1);
+            quickSort(arr, partitionIndex+1, end);
+        }
+        return arr;
+    }
+    private static int partition(int arr[], int begin, int end) {
+        int pivot = arr[end];
+        int i = (begin-1);
+    
+        for (int j = begin; j < end; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+    
+                int swapTemp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = swapTemp;
+            }
+        }
+    
+        int swapTemp = arr[i+1];
+        arr[i+1] = arr[end];
+        arr[end] = swapTemp;
+    
+        return i+1;
+    }
+    
+    public static int[] quickSortOpCount(int arr[], int begin, int end) {
+        ops++;
+        if (begin < end) {
+            int partitionIndex = partitionOpCount(arr, begin, end);
+            
+            ops+=2;
+            quickSort(arr, begin, partitionIndex-1);
+            quickSort(arr, partitionIndex+1, end);
+        }
+        return arr;
+    }
+    private static int partitionOpCount(int arr[], int begin, int end) {
+        int pivot = arr[end];
+        int i = (begin-1);
+        
+        ops++;
+        for (int j = begin; j < end; j++) {
+            ops++;
+            if (arr[j] <= pivot) {
+                i++;
+    
+                int swapTemp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = swapTemp;
+            }
+        }
+        
+        ops+=3;
+        int swapTemp = arr[i+1];
+        arr[i+1] = arr[end];
+        arr[end] = swapTemp;
+        
+        ops++;
+        return i+1;
+    }
+    
     public static boolean checkResults (int[] theArray, boolean report)
     {
         System.out.println("Checking Validity");
@@ -241,5 +334,4 @@ public class SortManager
 
         return stillValid;
     }
-
 }
